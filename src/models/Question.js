@@ -1,17 +1,17 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Test extends Model {
+class Question extends Model {
     static init(sequelize) {
         super.init({
-            title: DataTypes.STRING,
+            caput: DataTypes.STRING,
         }, {
             sequelize
         })
     }
 
     static associate(models) {
-        this.hasMany(models.Q, { foreignKey: 'test_id', as: 'questions' })
+        this.belongsTo(models.Test, { foreignKey: 'test_id', as: 'test' })
     }
 }
 
-module.exports = Test;
+module.exports = Question;
