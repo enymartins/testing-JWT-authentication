@@ -5,5 +5,8 @@ const routes = express.Router();
 
 routes.post('/:exam_id', QuestionController.createQuestion);
 routes.get('/:exam_id/list', QuestionController.getAll);
+routes.delete('/:id', QuestionController.remove);
+routes.put('/:id', QuestionController.update);
+
 
 module.exports = routes;

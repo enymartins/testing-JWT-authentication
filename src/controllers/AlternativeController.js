@@ -26,7 +26,40 @@ const createAlternative = async (req, res) => {
     return res.json(alternative);
 }
 
+const update = async (req, res) => {
+    const { id } = req.params;
+
+    const { content, isCorrect } = req.body;
+    try{
+        await Alternative.update({ content, isCorrect }, 
+            { 
+                where: { id }
+            })
+         res.status(200).send({ message: "Alternativa atualizada com sucesso!"})
+    } catch(err) {
+        res.status(500).json({ message: err.message})
+    }
+}
+
+const remove = async (req, res) => {
+    const { id } = req.params
+    const alternative = await Alternative.findByPk(id)
+    
+    if (alternative == undefined) {
+        return res.status(404).json({message: 'Essa alternativa não consta em nosso banco de dados'})
+    }    
+
+   try{
+       await alternative.destroy()
+        res.status(200).send({ message: "Alternativa deletada com sucesso!"})
+   } catch(err) {
+       res.status(500).json({ message: err.message})
+   }
+}
+
 module.exports = { 
     createAlternative,
-    getAll
+    getAll,
+    update,
+    remove
 }
