@@ -2,16 +2,33 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tests', {
+    await queryInterface.createTable('alternatives', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      title: {
+      question_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'questions', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      content: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      isCorrect: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
@@ -27,6 +44,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('tests');
+    await queryInterface.dropTable('alternatives');
   }
 };

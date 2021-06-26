@@ -1,14 +1,18 @@
 const Sequelize = require('sequelize');
 const dbConfig = require('../config/database');
 
-const Test = require('../models/Test');
+const Exam = require('../models/Exam');
 const Question = require('../models/Question');
+const Alternative = require('../models/Alternative');
 
 const connection = new Sequelize(dbConfig);
 
-Test.init(connection);
+Exam.init(connection);
 Question.init(connection);
+Alternative.init(connection);
 
+Exam.associate(connection.models);
 Question.associate(connection.models);
+Alternative.associate(connection.models);
 
 module.exports = connection;

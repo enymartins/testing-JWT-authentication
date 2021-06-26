@@ -5,10 +5,12 @@ require('./database');
 
 app.use(express.json());
 
-const test = require('./routes/testRoutes');
+const exam = require('./routes/examRoutes');
 const question = require('./routes/questionRoutes');
+const alternative = require('./routes/alternativeRoutes');
 
-app.use('/tests', test);
+app.use('/exams', exam);
 app.use('/questions', question);
+app.use('/alternatives', alternative);
 
 module.exports= app;
