@@ -26,6 +26,12 @@ Requisições para a API devem seguir os padrões:
 | `PUT` | Atualiza dados de um registro. |
 | `DELETE` | Remove um registro do sistema. |
 
+### Como executar
+* Clone o repositório
+* Instale as dependências com ```npm install```
+* Rode as migrations com ```npm run migration```
+* Inicie o servidor com ```npm start```
+
  
  ### EndPoints 
  Método GET
