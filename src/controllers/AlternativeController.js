@@ -25,7 +25,7 @@ const createAlternative = async (req, res) => {
     }
     try {
         const alternative = await Alternative.create({ question_id, content, isCorrect });
-        return res.json([{ 
+        return res.status(201).json([{ 
             "message":"Alternativa criada com sucesso!", 
             alternative }]);
     } catch (err) {

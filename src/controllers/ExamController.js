@@ -6,7 +6,7 @@ const getAll = async (req, res) => {
         const exams = await Exam.findAll({
             include: { association: 'Questions' }
         });
-        return res.json(exams);
+        return res.status(200).json(exams);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -16,7 +16,7 @@ const createExam = async (req, res) => {
     const { title } = req.body;
     try {
         const exam = await Exam.create({ title });
-        return res.json([{ 
+        return res.status(201).json([{ 
             "message":"Prova criada com sucesso!", 
             exam }]);
     } catch (err) {
