@@ -2,52 +2,60 @@ const Exam = require('../models/Exam');
 
 
 const getAll = async (req, res) => {
-    const exams = await Exam.findAll({
-         include: { association: 'Questions' }
-    });
-    return res.json(exams);
+    try {
+        const exams = await Exam.findAll({
+            include: { association: 'Questions' }
+        });
+        return res.json(exams);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 }
 
 const createExam = async (req, res) => {
     const { title } = req.body;
-
-    const exam = await Exam.create({ title });
-
-    return res.json(exam);
+    try {
+        const exam = await Exam.create({ title });
+        return res.json([{ 
+            "message":"Prova criada com sucesso!", 
+            exam }]);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 }
 
 const update = async (req, res) => {
     const { id } = req.params;
 
     const { title } = req.body;
-    try{
-        await Exam.update({ title }, 
-            { 
+    try {
+        await Exam.update({ title },
+            {
                 where: { id }
             })
-         res.status(200).send({ message: "Prova atualizada com sucesso!"})
-    } catch(err) {
-        res.status(500).json({ message: err.message})
+        res.status(200).send({ message: "Prova atualizada com sucesso!" })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
     }
 }
 
 const remove = async (req, res) => {
     const { id } = req.params
     const exam = await Exam.findByPk(id)
-    
-    if (exam == undefined) {
-        return res.status(404).json({message: 'Essa prova não existe em nosso banco de dados'})
-    }    
 
-   try{
-       await exam.destroy()
-        res.status(200).send({ message: "Prova deletada com sucesso!"})
-   } catch(err) {
-       res.status(500).json({ message: err.message})
-   }
+    if (exam == undefined) {
+        return res.status(404).json({ message: 'Essa prova não existe em nosso banco de dados' })
+    }
+
+    try {
+        await exam.destroy()
+        res.status(200).send({ message: "Prova deletada com sucesso!" })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 }
 
-module.exports = { 
+module.exports = {
     createExam,
     getAll,
     update,
