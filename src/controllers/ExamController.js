@@ -2,8 +2,9 @@ const Exam = require('../models/Exam');
 
 
 const getAll = async (req, res) => {
-    const exams = await Exam.findAll();
-
+    const exams = await Exam.findAll({
+         include: { association: 'Questions' }
+    });
     return res.json(exams);
 }
 

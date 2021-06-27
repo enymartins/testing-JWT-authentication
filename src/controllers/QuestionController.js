@@ -5,7 +5,9 @@ const getAll = async (req, res) => {
     const { exam_id } = req.params;
 
     const exam = await Exam.findByPk(exam_id, {
-        include: { association: 'questions' }
+        include: { 
+            association: 'Questions'
+        }
     });
 
     return res.json(exam);

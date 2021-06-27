@@ -10,8 +10,8 @@ class Question extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Exam, { foreignKey: 'exam_id', as: 'exam' })
-        this.hasMany(models.Alternative, { foreignKey: 'question_id', as: 'alternatives' })
+        this.belongsTo(models.Exam, { foreignKey: 'exam_id', as: 'Exam' })
+        this.hasMany(models.Alternative, { foreignKey: 'question_id', as: 'Alternatives' })
     }
 }
 

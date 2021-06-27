@@ -10,7 +10,7 @@ class Exam extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.Question, { foreignKey: 'exam_id', as: 'questions' })
+        this.hasMany(models.Question, { foreignKey: 'exam_id', as: 'Questions' })
     }
 }
 

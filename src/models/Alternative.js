@@ -11,7 +11,7 @@ class Alternative extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Question, { foreignKey: 'question_id', as: 'questions' })
+        this.belongsTo(models.Question, { foreignKey: 'question_id', as: 'Questions' })
     }
 }
 

@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
     const { question_id } = req.params;
 
     const question = await Question.findByPk(question_id, {
-        include: { association: 'alternatives' }
+        include: { association: 'Alternatives' }
     });
 
     return res.json(question);
