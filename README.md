@@ -13,7 +13,7 @@ API REST que gerencia um sistema de cadastro de provas.
 | `sequelize` | Dependência que interage com o MySQL para a conexão da database e criação das tabelas|
 | `nodemon` | Dependência que observa as atualizações realizadas nos documentos para rodar o servidor automaticamente|
 | `npm` | Gerenciador de pacotes|
-| `MySQL` | Banco de dado relacional|
+| `MySQL` | Banco de dados relacional|
 | `Sequel Ace` | Interface gráfica para verificar se os dados foram persistidos|
  `Insomnia ou Postman` | Interface gráfica para realizar os testes|
  
@@ -29,7 +29,9 @@ Requisições para a API devem seguir os padrões:
 ### Como executar
 * Clone o repositório
 * Instale as dependências com ```npm install```
-* Rode as migrations com ```npm run migration```
+* Crie um arquivo ```.env``` (para conexão do banco de dados).
+* Copie o conteúdo de ```.env.example``` para o arquivo ```.env``` (aqui ficarão as credenciais de seu database).
+* Para criar um novo database e rodar as migrations use ```npm run migration```
 * Inicie o servidor com ```npm start```
 
  
