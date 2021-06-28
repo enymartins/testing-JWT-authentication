@@ -1,12 +1,34 @@
 const Exam = require('../models/Exam');
-
-
+const Question = require('../models/Question');
 const getAll = async (req, res) => {
     try {
         const exams = await Exam.findAll({
             include: { association: 'Questions' }
         });
-        return res.status(200).json(exams);
+
+        const entireExams = []
+
+        for (exam of exams) {
+            for (question of exam.Questions) {
+                const questions = await Question.findByPk(question.id, {
+                    include: { association: 'Alternatives' }
+                });
+
+                entireExams.push(
+                    {
+                        id: exam.id,
+                        title: exam.title,
+                        questions: {
+                            id: question.id,
+                            caput: question.caput,
+                            alternatives: questions.Alternatives
+                        }
+                    }
+                )
+            }
+        };
+
+        return res.status(200).json(entireExams);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
