@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
-const config = require('../config/auth');
 
 const index = async (req, res) => {
     const { email, password } = req.body
@@ -23,8 +22,8 @@ const index = async (req, res) => {
             },
             token: JWT.sign(
                 { id: userExists.id }, 
-                config.secret,
-                { expiresIn: config.expireIn }
+                process.env.SECRET,
+                { expiresIn: "2h" }
                 )
         });
     } catch (err) {

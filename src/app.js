@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 
@@ -15,4 +16,4 @@ app.use('/questions', question);
 app.use('/alternatives', alternative);
 app.use('/users', user);
 
-module.exports= app;
+module.exports = app;

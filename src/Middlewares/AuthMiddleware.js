@@ -1,33 +1,28 @@
 const JWT = require('jsonwebtoken');
-const config = require('../config/auth');
-const { promisify } = require('util');
 
-module.exports = async (req, res, next) => {
-    const auth = req.headers.authorization;
+const config = process.env;
 
-    if (!auth) {
-        return res.status(401).json({
-            code: 130,
-            message: "Token de autenticação inválido!"
-        })
-    }
-    //separar bearer do token em si
-    const [, token] = auth.split(' ');
+const verifyToken = (req, res, next) => {
+    const token = 
+        req.body.token || req.query.token || req.headers["x-access-token"];
 
-    try {
-        const decoded = await promisify(JWT.verify)(token, config.secret);
-
-        if (!decoded) {
-            return res.status(401).json({
-                message: "O token está expirado!"
-            })
-        } else {
-            req.user_id = decoded.user_id;
-            next()
+        if(!token) {
+            return res.status(403).send("Um token é necessário para realizar a autenticação!");
         }
-    } catch {
-        return res.status(401).json({
-            message: "Token inválido!"
-        })
-    }
+
+        try {
+            const decoded = JWT.verify(token, config.SECRET);
+            if (!decoded) {
+                return res.status(401).json({
+                message: "O token está expirado!"
+                    })
+               } else {
+            req.user = decoded;
+               }
+        } catch (err) {
+            return res.status(401).send("Token Inválido!");
+        }
+        return next();
 }
+
+    module.exports = verifyToken;

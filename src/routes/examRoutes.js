@@ -4,8 +4,8 @@ const AuthMiddleware = require('../Middlewares/AuthMiddleware');
 
 const routes = express.Router();
 
-routes.post('/create', AuthMiddleware, ExamController.createExam);
 routes.get('/list', ExamController.getAll);
+routes.post('/create', AuthMiddleware, ExamController.createExam);
 routes.delete('/:id', AuthMiddleware, ExamController.remove);
 routes.put('/:id', AuthMiddleware, ExamController.update);
 
